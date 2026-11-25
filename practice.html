@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore API-powered English vocabulary and take a live synonym quiz with JEET COACHING." />
+  <meta name="theme-color" content="#101C35" />
+  <title>English Practice Lab | JEET COACHING Korba</title>
+  <link rel="canonical" href="https://ranjan-builds.github.io/JeetCoaching/practice.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#101C35',
+            'navy-light': '#192A4D',
+            royal: '#3157D5',
+            'royal-dark': '#2443AC',
+            amber: '#FFAA42',
+            cream: '#FFF9F0',
+            muted: '#697386'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 30px -5px rgba(16, 28, 53, 0.06)',
+            card: '0 14px 36px -8px rgba(16, 28, 53, 0.08)'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: Inter, sans-serif; color: #101C35; }
+    h1, h2, h3, .font-display { font-family: "Plus Jakarta Sans", sans-serif; }
+    :focus-visible { outline: 3px solid #3157D5; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-royal selection:text-white bg-white">
+  <header class="sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex shrink-0 items-center gap-3 rounded-xl" aria-label="JEET COACHING home">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-navy font-display text-lg font-extrabold text-amber">J</span>
+        <span class="font-display font-extrabold tracking-tight">JEET <span class="text-royal">COACHING</span></span>
+      </a>
+      <nav class="flex items-center gap-3 sm:gap-6" aria-label="Practice navigation">
+        <a href="#word-explorer" class="whitespace-nowrap text-xs font-semibold text-navy hover:text-royal sm:text-sm">Word Explorer</a>
+        <a href="#api-quiz" class="whitespace-nowrap text-xs font-semibold text-navy hover:text-royal sm:text-sm">Quiz</a>
+        <a href="index.html#contact" class="hidden whitespace-nowrap rounded-xl bg-royal px-4 py-2.5 text-sm font-semibold text-white hover:bg-royal-dark sm:inline-flex">Enquire</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="relative overflow-hidden bg-cream px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full bg-royal/10 blur-3xl" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-7xl">
+        <span class="mb-5 inline-flex rounded-full border border-amber/40 bg-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-widest text-royal">JEET COACHING · KORBA</span>
+        <div class="grid items-center gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-8">
+            <h1 class="font-display text-4xl font-extrabold leading-tight tracking-tight text-navy sm:text-5xl lg:text-6xl">Build your English<br /><span class="text-royal">word by word.</span></h1>
+            <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">Explore related vocabulary, look up definitions, and take a fresh synonym quiz. Practice words, meanings, and examples are loaded from free public APIs.</p>
+            <div class="mt-7 flex flex-wrap gap-3">
+              <a href="#word-explorer" class="rounded-xl bg-royal px-5 py-3 text-sm font-bold text-white shadow-soft hover:bg-royal-dark">Explore vocabulary</a>
+              <a href="#api-quiz" class="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-navy hover:border-royal">Take the quiz</a>
+            </div>
+          </div>
+          <div class="rounded-3xl bg-navy p-6 text-white shadow-card lg:col-span-4">
+            <p class="text-xs font-bold uppercase tracking-widest text-amber">Live API practice</p>
+            <p class="mt-3 font-display text-xl font-bold">New word connections every time.</p>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Question words and choices are fetched when you start. Your search word is sent to the API providers; quiz answers are not saved by this site.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="word-explorer" class="scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-9 max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-royal">01 · Datamuse + Dictionary API</span>
+          <h2 class="mt-2 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Explore a word</h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted sm:text-base">Search for a word to load its available pronunciations, meanings, definitions, examples, synonyms, antonyms, origin, sources, and licensing data. The complete response is also available as JSON.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8 lg:col-span-5">
+            <form id="word-search-form">
+              <label for="word-search" class="mb-2 block text-sm font-bold">Search by word</label>
+              <div class="flex gap-2">
+                <input id="word-search" name="word" type="text" maxlength="40" autocomplete="off" required placeholder="e.g. confident" class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm" />
+                <button id="word-search-btn" type="submit" class="shrink-0 rounded-xl bg-navy px-4 py-3 text-sm font-bold text-white hover:bg-royal">Search</button>
+              </div>
+            </form>
+            <div class="mt-5 flex items-center justify-between gap-3">
+              <h3 class="font-display text-lg font-bold text-navy">Related words</h3>
+              <span id="word-result-count" class="text-xs font-medium text-muted"></span>
+            </div>
+            <p id="word-search-status" class="mt-3 text-sm text-muted" role="status" aria-live="polite">Search a word to load suggestions from Datamuse.</p>
+            <div id="word-results" class="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1" aria-label="Related words"></div>
+            <p id="word-search-error" class="mt-3 hidden rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800" role="alert"></p>
+          </div>
+          <article id="dictionary-card" class="min-h-64 rounded-3xl bg-cream p-6 sm:p-8 lg:col-span-7" aria-live="polite" aria-busy="false">
+            <div id="dictionary-loading" class="hidden rounded-xl bg-white px-4 py-3 text-sm text-muted" role="status">Loading dictionary entry…</div>
+            <p id="dictionary-error" class="hidden rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800" role="alert"></p>
+            <div id="dictionary-entries" class="hidden space-y-5"></div>
+            <details id="dictionary-raw-details" class="mt-5 hidden rounded-2xl border border-slate-200 bg-white p-4">
+              <summary class="cursor-pointer text-sm font-bold text-royal">View the complete API response (JSON)</summary>
+              <pre id="dictionary-raw-json" class="mt-4 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-700"></pre>
+            </details>
+            <p id="dictionary-placeholder" class="py-16 text-center text-sm text-muted">Choose a related word to see its API-powered dictionary entry.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="api-quiz" class="scroll-mt-20 border-y border-slate-200 bg-cream/70 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-9 max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-royal">02 · Fresh API-generated questions</span>
+          <h2 class="mt-2 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Synonym challenge</h2>
+          <p class="mt-3 text-sm leading-relaxed text-muted sm:text-base">Enter a word. Datamuse supplies the synonyms and related-word choices for a short multiple-choice quiz. The challenge only starts if the API returns enough suggestions.</p>
+        </div>
+        <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">
+          <div class="grid lg:grid-cols-12">
+            <div class="bg-navy p-6 text-white sm:p-8 lg:col-span-4">
+              <span class="text-xs font-bold uppercase tracking-widest text-amber">Your quiz topic</span>
+              <form id="quiz-form" class="mt-5">
+                <label for="quiz-topic" class="mb-2 block text-sm font-semibold">Enter an English word</label>
+                <input id="quiz-topic" name="topic" type="text" maxlength="40" autocomplete="off" required placeholder="e.g. confident" class="w-full rounded-xl border border-white/20 bg-white px-4 py-3 text-sm text-navy placeholder:text-muted/70" />
+                <button id="start-quiz-btn" type="submit" class="mt-3 w-full rounded-xl bg-amber px-4 py-3 text-sm font-bold text-navy hover:bg-amber/90">Generate my quiz</button>
+              </form>
+              <p class="mt-5 text-xs leading-relaxed text-slate-300">Each quiz has up to five questions. It is vocabulary practice, not a formal English placement test.</p>
+            </div>
+            <div class="p-6 sm:p-8 lg:col-span-8">
+              <div id="quiz-loading" class="hidden rounded-xl bg-cream px-4 py-3 text-sm text-muted" role="status" aria-live="polite">Fetching synonym and related-word data…</div>
+              <p id="quiz-error" class="hidden rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800" role="alert"></p>
+              <div id="quiz-content" class="hidden">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <span class="rounded-full bg-royal/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-royal">Choose the closest synonym</span>
+                  <span id="quiz-progress" class="text-sm font-semibold text-muted"></span>
+                </div>
+                <div class="mt-4 h-2 overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+                  <div id="quiz-progress-bar" class="h-full w-0 rounded-full bg-amber transition-all duration-300"></div>
+                </div>
+                <h3 id="quiz-question" class="mt-7 font-display text-xl font-extrabold leading-snug text-navy sm:text-2xl"></h3>
+                <div id="quiz-options" class="mt-5 grid gap-3 sm:grid-cols-2" role="group" aria-label="Synonym answer choices"></div>
+                <p id="quiz-feedback" class="mt-4 min-h-6 text-sm font-semibold" role="status" aria-live="polite"></p>
+                <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                  <span id="quiz-score" class="text-sm font-bold text-navy"></span>
+                  <button id="quiz-action-btn" type="button" disabled class="rounded-xl bg-royal px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-royal-dark disabled:cursor-not-allowed disabled:bg-slate-300">Check answer</button>
+                </div>
+              </div>
+              <div id="quiz-placeholder" class="py-10 text-center">
+                <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-cream text-2xl" aria-hidden="true">Aa</div>
+                <p class="mt-4 font-display text-lg font-bold text-navy">Your API-generated quiz will appear here</p>
+                <p class="mt-2 text-sm text-muted">Enter a topic word and start when you’re ready.</p>
+              </div>
+              <div id="quiz-result" class="hidden py-8 text-center" role="status" aria-live="polite">
+                <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber/20 text-2xl text-navy" aria-hidden="true">✓</span>
+                <h3 class="mt-4 font-display text-2xl font-extrabold text-navy">Quiz complete</h3>
+                <p id="quiz-final-score" class="mt-2 text-lg font-bold text-royal"></p>
+                <p class="mt-2 text-sm text-muted">Try another topic to load a different set of API suggestions.</p>
+                <button id="new-quiz-btn" type="button" class="mt-5 rounded-xl bg-navy px-5 py-3 text-sm font-bold text-white hover:bg-royal">Create another quiz</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-slate-200 bg-navy px-4 py-12 text-white sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-amber">Visit or enquire</span>
+          <h2 class="mt-2 font-display text-2xl font-extrabold">JEET COACHING · Korba</h2>
+          <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">Near Saraswati Shishu Vidya Mandir, Budhwari Basti, Korba, Chhattisgarh 495677. Contact the institute to confirm current batch timings and fees.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="tel:+917828180147" class="rounded-xl border border-white/20 px-4 py-3 text-sm font-bold text-white hover:bg-white/10">Call +91 78281 80147</a>
+          <a href="https://maps.app.goo.gl/7qsLcsYqB1GDtkzS6" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-amber px-4 py-3 text-sm font-bold text-navy hover:bg-amber/90">Get directions</a>
+          <a href="index.html#contact" class="rounded-xl bg-royal px-4 py-3 text-sm font-bold text-white hover:bg-royal-dark">Send an enquiry</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-navy px-4 pb-8 text-slate-400 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 pt-6 text-xs sm:flex-row sm:justify-between">
+      <span>© 2026 JEET COACHING</span>
+      <div class="flex flex-wrap gap-4">
+        <a href="https://www.datamuse.com/api/" target="_blank" rel="noopener noreferrer" class="font-semibold text-slate-200 hover:text-amber">Datamuse API</a>
+        <a href="https://dictionaryapi.dev/" target="_blank" rel="noopener noreferrer" class="font-semibold text-slate-200 hover:text-amber">Free Dictionary API</a>
+        <a href="index.html" class="font-semibold text-slate-200 hover:text-amber">Main website</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const datamuseApi = 'https://api.datamuse.com/words';
+      const dictionaryApi = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+      const validWord = /^[a-z]+(?:[-'][a-z]+)*$/i;
+
+      async function fetchJson(url) {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+        try {
+          const response = await fetch(url, {
+            headers: { Accept: 'application/json' },
+            signal: controller.signal
+          });
+          if (!response.ok) {
+            const error = new Error(`The API returned HTTP ${response.status}.`);
+            error.status = response.status;
+            throw error;
+          }
+          return await response.json();
+        } catch (error) {
+          if (error.name === 'AbortError') {
+            throw new Error('The API request timed out. Check your connection and try again.');
+          }
+          throw error;
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      }
+
+      function uniqueWords(items, excludedWords) {
+        const excluded = new Set(excludedWords.map((word) => word.toLowerCase()));
+        const seen = new Set();
+        return items.filter((item) => {
+          const word = typeof item.word === 'string' ? item.word.trim() : '';
+          const normalized = word.toLowerCase();
+          if (!validWord.test(word) || excluded.has(normalized) || seen.has(normalized)) return false;
+          seen.add(normalized);
+          return true;
+        });
+      }
+
+      function setText(elementId, text) {
+        document.getElementById(elementId).textContent = text;
+      }
+
+      const wordSearchForm = document.getElementById('word-search-form');
+      const wordSearchInput = document.getElementById('word-search');
+      const wordSearchButton = document.getElementById('word-search-btn');
+      const wordResults = document.getElementById('word-results');
+      const wordSearchStatus = document.getElementById('word-search-status');
+      const wordSearchError = document.getElementById('word-search-error');
+      const wordResultCount = document.getElementById('word-result-count');
+      const dictionaryCard = document.getElementById('dictionary-card');
+      const dictionaryLoading = document.getElementById('dictionary-loading');
+      const dictionaryError = document.getElementById('dictionary-error');
+      const dictionaryEntries = document.getElementById('dictionary-entries');
+      const dictionaryRawDetails = document.getElementById('dictionary-raw-details');
+      const dictionaryRawJson = document.getElementById('dictionary-raw-json');
+      const dictionaryPlaceholder = document.getElementById('dictionary-placeholder');
+
+      function showWordSearchError(message) {
+        wordSearchError.textContent = message;
+        wordSearchError.classList.remove('hidden');
+      }
+
+      function renderWordResults(items) {
+        wordResults.replaceChildren();
+        items.forEach((item) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'rounded-xl border border-slate-200 bg-cream px-4 py-3 text-left text-sm font-semibold text-navy transition-colors hover:border-royal hover:bg-royal/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-royal';
+          button.textContent = item.word;
+          button.addEventListener('click', () => lookupDefinition(item.word));
+          wordResults.append(button);
+        });
+        wordResultCount.textContent = `${items.length} suggestions`;
+      }
+
+      async function searchRelatedWords(searchTerm) {
+        const normalizedTerm = searchTerm.trim().toLowerCase();
+        if (!validWord.test(normalizedTerm)) {
+          showWordSearchError('Enter one English word using letters, apostrophes, or hyphens.');
+          wordSearchInput.focus();
+          return;
+        }
+
+        wordSearchButton.disabled = true;
+        wordSearchButton.textContent = 'Searching…';
+        wordSearchError.classList.add('hidden');
+        wordResults.replaceChildren();
+        wordResultCount.textContent = '';
+        wordSearchStatus.textContent = 'Loading related words from Datamuse…';
+
+        try {
+          const url = `${datamuseApi}?ml=${encodeURIComponent(normalizedTerm)}&max=24`;
+          const data = await fetchJson(url);
+          if (!Array.isArray(data)) {
+            throw new Error('Datamuse returned an unexpected response.');
+          }
+          const results = uniqueWords(data, [normalizedTerm]).slice(0, 12);
+          if (!results.length) {
+            wordSearchStatus.textContent = '';
+            showWordSearchError(`Datamuse did not find related words for “${normalizedTerm}”. Try another word.`);
+            return;
+          }
+          renderWordResults(results);
+          wordSearchStatus.textContent = 'Select a word to load its definition from the dictionary API.';
+        } catch (error) {
+          console.error('Related-word lookup failed:', error);
+          wordSearchStatus.textContent = '';
+          showWordSearchError(error.message || 'Related words could not be loaded. Try again.');
+        } finally {
+          wordSearchButton.disabled = false;
+          wordSearchButton.textContent = 'Search';
+        }
+      }
+
+      function createElement(tagName, className, text) {
+        const element = document.createElement(tagName);
+        if (className) element.className = className;
+        if (text !== undefined) element.textContent = text;
+        return element;
+      }
+
+      function appendWordList(parent, label, words) {
+        const validWords = Array.isArray(words) ? words.filter((word) => typeof word === 'string' && word.trim()) : [];
+        if (!validWords.length) return;
+
+        const section = createElement('section', 'mt-4');
+        section.append(createElement('h5', 'text-xs font-bold uppercase tracking-wider text-muted', label));
+        const list = createElement('ul', 'mt-2 flex flex-wrap gap-2');
+        validWords.forEach((word) => {
+          list.append(createElement('li', 'rounded-full bg-royal/10 px-3 py-1 text-xs font-medium text-royal', word));
+        });
+        section.append(list);
+        parent.append(section);
+      }
+
+      function appendExternalLink(parent, label, url) {
+        if (typeof url !== 'string' || !url.trim()) return;
+        let parsedUrl;
+        try {
+          parsedUrl = new URL(url, window.location.href);
+        } catch (error) {
+          return;
+        }
+        if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') return;
+
+        const link = createElement('a', 'break-all font-medium text-royal underline underline-offset-2 hover:text-royal-dark', label);
+        link.href = parsedUrl.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        parent.append(link);
+      }
+
+      function appendLicense(parent, license) {
+        if (!license || typeof license !== 'object') return;
+        const section = createElement('p', 'mt-2 text-xs leading-relaxed text-muted');
+        const name = typeof license.name === 'string' ? license.name : 'License';
+        section.append(document.createTextNode(`License: ${name}`));
+        if (license.url) {
+          section.append(document.createTextNode(' · '));
+          appendExternalLink(section, 'View license', license.url);
+        }
+        parent.append(section);
+      }
+
+      function appendSourceLinks(parent, urls) {
+        if (!Array.isArray(urls) || !urls.length) return;
+        const section = createElement('div', 'mt-4');
+        section.append(createElement('h5', 'text-xs font-bold uppercase tracking-wider text-muted', urls.length === 1 ? 'Source' : 'Sources'));
+        const list = createElement('ul', 'mt-2 space-y-1');
+        urls.forEach((url, index) => {
+          const item = createElement('li', 'text-xs');
+          appendExternalLink(item, urls.length === 1 ? String(url) : `Source ${index + 1}: ${url}`, url);
+          if (item.childElementCount) list.append(item);
+        });
+        if (list.childElementCount) {
+          section.append(list);
+          parent.append(section);
+        }
+      }
+
+      function renderPronunciations(parent, phonetics) {
+        if (!Array.isArray(phonetics) || !phonetics.length) return;
+        const section = createElement('section', 'mt-5');
+        section.append(createElement('h4', 'font-display text-sm font-bold text-navy', 'Pronunciations'));
+
+        phonetics.forEach((phonetic, index) => {
+          if (!phonetic || typeof phonetic !== 'object') return;
+          const card = createElement('div', 'mt-3 rounded-xl border border-slate-200 bg-white p-4');
+          card.append(createElement('p', 'text-xs font-bold uppercase tracking-wider text-royal', `Pronunciation ${index + 1}`));
+          if (phonetic.text) card.append(createElement('p', 'mt-1 text-sm text-navy', phonetic.text));
+
+          if (phonetic.audio) {
+            let audioUrl;
+            try {
+              audioUrl = new URL(phonetic.audio, window.location.href);
+            } catch (error) {
+              audioUrl = null;
+            }
+            if (audioUrl && (audioUrl.protocol === 'https:' || audioUrl.protocol === 'http:')) {
+              const audio = createElement('audio', 'mt-3 block w-full max-w-sm');
+              audio.controls = true;
+              audio.preload = 'none';
+              audio.src = audioUrl.href;
+              audio.append(document.createTextNode('Your browser does not support audio playback.'));
+              card.append(audio);
+            }
+          }
+
+          const metadata = createElement('div', 'mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs');
+          appendExternalLink(metadata, 'Open audio file', phonetic.audio);
+          appendExternalLink(metadata, 'Source page', phonetic.sourceUrl);
+          if (metadata.childElementCount) card.append(metadata);
+          appendLicense(card, phonetic.license);
+          section.append(card);
+        });
+
+        if (section.childElementCount > 1) parent.append(section);
+      }
+
+      function renderMeaning(parent, meaning, index) {
+        if (!meaning || typeof meaning !== 'object') return;
+        const section = createElement('section', 'mt-5 rounded-2xl border border-slate-200 bg-white p-5');
+        const partOfSpeech = typeof meaning.partOfSpeech === 'string' && meaning.partOfSpeech
+          ? meaning.partOfSpeech
+          : 'Meaning';
+        section.append(createElement('h4', 'font-display text-base font-bold text-navy', `${index + 1}. ${partOfSpeech}`));
+
+        if (Array.isArray(meaning.definitions)) {
+          meaning.definitions.forEach((definition, definitionIndex) => {
+            if (!definition || typeof definition !== 'object') return;
+            const card = createElement('div', 'mt-4 border-l-2 border-amber pl-4');
+            if (definition.definition) {
+              card.append(createElement('p', 'text-sm leading-relaxed text-navy', definition.definition));
+            }
+            if (definition.example) {
+              card.append(createElement('p', 'mt-2 rounded-lg bg-cream p-3 text-sm italic leading-relaxed text-muted', `Example ${definitionIndex + 1}: “${definition.example}”`));
+            }
+            appendWordList(card, 'Synonyms for this definition', definition.synonyms);
+            appendWordList(card, 'Antonyms for this definition', definition.antonyms);
+            section.append(card);
+          });
+        }
+
+        appendWordList(section, 'All synonyms for this part of speech', meaning.synonyms);
+        appendWordList(section, 'All antonyms for this part of speech', meaning.antonyms);
+        parent.append(section);
+      }
+
+      function renderDictionaryEntry(entry, index) {
+        const card = createElement('article', 'rounded-2xl border border-amber/40 bg-white p-5 sm:p-6');
+        const heading = createElement('div', 'flex flex-wrap items-start justify-between gap-3');
+        const titleGroup = createElement('div', '');
+        titleGroup.append(createElement('p', 'text-xs font-bold uppercase tracking-widest text-royal', `Dictionary entry ${index + 1}`));
+        titleGroup.append(createElement('h3', 'mt-2 break-words font-display text-3xl font-extrabold text-navy', entry.word || 'Word'));
+        if (entry.phonetic) titleGroup.append(createElement('p', 'mt-1 text-sm text-muted', entry.phonetic));
+        heading.append(titleGroup);
+        card.append(heading);
+
+        renderPronunciations(card, entry.phonetics);
+        if (entry.origin) {
+          const origin = createElement('section', 'mt-5 rounded-xl bg-cream p-4');
+          origin.append(createElement('h4', 'text-xs font-bold uppercase tracking-wider text-royal', 'Origin'));
+          origin.append(createElement('p', 'mt-2 text-sm leading-relaxed text-navy', entry.origin));
+          card.append(origin);
+        }
+
+        if (Array.isArray(entry.meanings) && entry.meanings.length) {
+          const meanings = createElement('div', 'mt-5 border-t border-slate-100 pt-4');
+          meanings.append(createElement('h4', 'font-display text-lg font-bold text-navy', `Meanings (${entry.meanings.length})`));
+          entry.meanings.forEach((meaning, meaningIndex) => renderMeaning(meanings, meaning, meaningIndex));
+          card.append(meanings);
+        }
+
+        appendWordList(card, 'Entry synonyms', entry.synonyms);
+        appendWordList(card, 'Entry antonyms', entry.antonyms);
+        appendSourceLinks(card, entry.sourceUrls);
+        appendLicense(card, entry.license);
+        return card;
+      }
+
+      async function lookupDefinition(word) {
+        dictionaryCard.setAttribute('aria-busy', 'true');
+        dictionaryLoading.classList.remove('hidden');
+        dictionaryError.classList.add('hidden');
+        dictionaryEntries.classList.add('hidden');
+        dictionaryRawDetails.classList.add('hidden');
+        dictionaryPlaceholder.classList.add('hidden');
+        try {
+          const data = await fetchJson(`${dictionaryApi}${encodeURIComponent(word)}`);
+          if (!Array.isArray(data) || !data[0]) {
+            throw new Error('The dictionary returned an unexpected response.');
+          }
+          dictionaryEntries.replaceChildren(...data.map((entry, index) => renderDictionaryEntry(entry, index)));
+          dictionaryRawJson.textContent = JSON.stringify(data, null, 2);
+          dictionaryEntries.classList.remove('hidden');
+          dictionaryRawDetails.classList.remove('hidden');
+        } catch (error) {
+          console.error('Dictionary lookup failed:', error);
+          dictionaryError.textContent = error.status === 404
+            ? `No dictionary entry was found for “${word}”. Try another suggestion.`
+            : error.message || 'The dictionary entry could not be loaded. Try again.';
+          dictionaryError.classList.remove('hidden');
+        } finally {
+          dictionaryLoading.classList.add('hidden');
+          dictionaryCard.setAttribute('aria-busy', 'false');
+        }
+      }
+
+      wordSearchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const word = wordSearchInput.value.trim();
+        searchRelatedWords(word);
+        if (validWord.test(word)) lookupDefinition(word);
+      });
+
+      const quizForm = document.getElementById('quiz-form');
+      const quizTopic = document.getElementById('quiz-topic');
+      const startQuizButton = document.getElementById('start-quiz-btn');
+      const quizLoading = document.getElementById('quiz-loading');
+      const quizError = document.getElementById('quiz-error');
+      const quizContent = document.getElementById('quiz-content');
+      const quizPlaceholder = document.getElementById('quiz-placeholder');
+      const quizResult = document.getElementById('quiz-result');
+      const quizOptions = document.getElementById('quiz-options');
+      const quizActionButton = document.getElementById('quiz-action-btn');
+      const quizProgressBar = document.getElementById('quiz-progress-bar');
+      const quizProgress = document.querySelector('[role="progressbar"]');
+      let quizQuestions = [];
+      let questionIndex = 0;
+      let score = 0;
+      let selectedAnswer = '';
+      let answerChecked = false;
+
+      function shuffle(items) {
+        const result = items.slice();
+        for (let index = result.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [result[index], result[swapIndex]] = [result[swapIndex], result[index]];
+        }
+        return result;
+      }
+
+      function showQuizError(message) {
+        quizError.textContent = message;
+        quizError.classList.remove('hidden');
+      }
+
+      function makeQuizQuestions(term, synonyms, distractors) {
+        const correctWords = shuffle(synonyms).slice(0, 5);
+        return correctWords.map((correct) => ({
+          term,
+          correct: correct.word,
+          definition: correct.defs && correct.defs[0] ? correct.defs[0].replace(/^[^\t]+\t/, '') : '',
+          options: shuffle([correct.word, ...shuffle(distractors).slice(0, 3).map((item) => item.word)])
+        }));
+      }
+
+      function renderQuizQuestion() {
+        const question = quizQuestions[questionIndex];
+        selectedAnswer = '';
+        answerChecked = false;
+        quizOptions.replaceChildren();
+        setText('quiz-question', `Choose a word that is similar in meaning to “${question.term}”.`);
+        setText('quiz-progress', `Question ${questionIndex + 1} of ${quizQuestions.length}`);
+        setText('quiz-score', `Score: ${score}`);
+        setText('quiz-feedback', '');
+        quizActionButton.disabled = true;
+        quizActionButton.textContent = 'Check answer';
+        quizProgress.setAttribute('aria-valuemax', String(quizQuestions.length));
+        quizProgress.setAttribute('aria-valuenow', String(questionIndex));
+        quizProgressBar.style.width = `${(questionIndex / quizQuestions.length) * 100}%`;
+
+        question.options.forEach((word) => {
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'min-h-14 rounded-xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold text-navy transition-colors hover:border-royal hover:bg-royal/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-royal';
+          option.textContent = word;
+          option.setAttribute('aria-pressed', 'false');
+          option.addEventListener('click', () => {
+            if (answerChecked) return;
+            selectedAnswer = word;
+            quizOptions.querySelectorAll('button').forEach((button) => {
+              button.setAttribute('aria-pressed', String(button === option));
+              button.classList.toggle('border-royal', button === option);
+              button.classList.toggle('bg-royal/5', button === option);
+            });
+            quizActionButton.disabled = false;
+          });
+          quizOptions.append(option);
+        });
+      }
+
+      function finishQuiz() {
+        quizContent.classList.add('hidden');
+        quizResult.classList.remove('hidden');
+        setText('quiz-final-score', `You got ${score} out of ${quizQuestions.length} correct.`);
+      }
+
+      async function generateQuiz(term) {
+        const normalizedTerm = term.trim().toLowerCase();
+        if (!validWord.test(normalizedTerm)) {
+          showQuizError('Enter one English word using letters, apostrophes, or hyphens.');
+          quizTopic.focus();
+          return;
+        }
+
+        startQuizButton.disabled = true;
+        startQuizButton.textContent = 'Loading API questions…';
+        quizError.classList.add('hidden');
+        quizContent.classList.add('hidden');
+        quizResult.classList.add('hidden');
+        quizPlaceholder.classList.add('hidden');
+        quizLoading.classList.remove('hidden');
+
+        try {
+          const [synonymData, relatedData, antonymData] = await Promise.all([
+            fetchJson(`${datamuseApi}?rel_syn=${encodeURIComponent(normalizedTerm)}&md=d&max=50`),
+            fetchJson(`${datamuseApi}?ml=${encodeURIComponent(normalizedTerm)}&max=100`),
+            fetchJson(`${datamuseApi}?rel_ant=${encodeURIComponent(normalizedTerm)}&max=30`)
+          ]);
+          if (![synonymData, relatedData, antonymData].every(Array.isArray)) {
+            throw new Error('The vocabulary API returned an unexpected response.');
+          }
+
+          const synonyms = uniqueWords(synonymData, [normalizedTerm]);
+          const synonymSet = new Set(synonyms.map((item) => item.word.toLowerCase()));
+          const relatedDistractors = uniqueWords(
+            relatedData.filter((item) => !Array.isArray(item.tags) || !item.tags.includes('syn')),
+            [normalizedTerm, ...synonymSet]
+          );
+          const antonymDistractors = uniqueWords(antonymData, [normalizedTerm, ...synonymSet]);
+          const distractors = uniqueWords([...antonymDistractors, ...relatedDistractors], [normalizedTerm, ...synonymSet]);
+
+          if (synonyms.length < 1 || distractors.length < 3) {
+            throw new Error(`There were not enough API suggestions for “${normalizedTerm}”. Try a common word such as “happy” or “confident”.`);
+          }
+
+          quizQuestions = makeQuizQuestions(normalizedTerm, synonyms, distractors);
+          questionIndex = 0;
+          score = 0;
+          quizLoading.classList.add('hidden');
+          quizContent.classList.remove('hidden');
+          renderQuizQuestion();
+        } catch (error) {
+          console.error('Quiz data request failed:', error);
+          quizLoading.classList.add('hidden');
+          quizPlaceholder.classList.remove('hidden');
+          showQuizError(error.message || 'Quiz questions could not be loaded. Try again.');
+        } finally {
+          startQuizButton.disabled = false;
+          startQuizButton.textContent = 'Generate my quiz';
+        }
+      }
+
+      quizForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        generateQuiz(quizTopic.value);
+      });
+
+      quizActionButton.addEventListener('click', () => {
+        if (!answerChecked) {
+          if (!selectedAnswer) return;
+          const question = quizQuestions[questionIndex];
+          const isCorrect = selectedAnswer === question.correct;
+          answerChecked = true;
+          if (isCorrect) score += 1;
+
+          quizOptions.querySelectorAll('button').forEach((button) => {
+            button.disabled = true;
+            if (button.textContent === question.correct) {
+              button.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+            } else if (button.textContent === selectedAnswer) {
+              button.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-800');
+            }
+          });
+
+          setText('quiz-score', `Score: ${score}`);
+          const explanation = question.definition ? ` API definition: ${question.definition}` : '';
+          setText('quiz-feedback', `${isCorrect ? 'Correct!' : `The API synonym is “${question.correct}”.`}${explanation}`);
+          quizProgress.setAttribute('aria-valuenow', String(questionIndex + 1));
+          quizProgressBar.style.width = `${((questionIndex + 1) / quizQuestions.length) * 100}%`;
+          quizActionButton.textContent = questionIndex === quizQuestions.length - 1 ? 'See my result' : 'Next question';
+          return;
+        }
+
+        if (questionIndex === quizQuestions.length - 1) {
+          finishQuiz();
+          return;
+        }
+        questionIndex += 1;
+        renderQuizQuestion();
+      });
+
+      document.getElementById('new-quiz-btn').addEventListener('click', () => {
+        quizResult.classList.add('hidden');
+        quizPlaceholder.classList.remove('hidden');
+        quizTopic.focus();
+      });
+    })();
+  </script>
+</body>
+</html>
